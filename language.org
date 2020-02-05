@@ -1,0 +1,87 @@
+* Basic
+** Chunks
+   A file or a single line in interactive mode, a sequence of statements.
+   ; for multiple statements in one line
+   #+BEGIN_SRC lua
+   a = 1; b = a * 2
+   #+END_SRC
+
+   -l: require the file in a specific(includes current) directory
+   -i: start interactive session after running given chunks
+   #+BEGIN_SRC bash
+   lua -i -la -lb
+   #+END_SRC
+
+   Once in the session, use dofile("xxx.lua") to require the chunk.
+
+** Global Variable
+   When we want to delete a gloabl variable, use nil assignment
+** Lexical Conventions
+   #+BEGIN_SRC lua
+   -- Reserved identifiers:
+   elseif local nil repeat then true false until while
+   --[[
+   Comment code block
+   ]]--
+   #+END_SRC
+
+** Interpreter
+   AKA lua.c
+   lua [options] [script [args]]
+
+   -e: enter code directly to the command line
+   #+BEGIN_SRC bash
+   lua -e "print(math.sin(12))"
+   #+END_SRC
+
+   *arg* for cmd args
+   
+* Types and Values
+** Basics
+   *nil*, boolean, number, string, *userdata*, function, *thread*, *table*
+   #+BEGIN_SRC lua
+   type(1.0)
+   #+END_SRC
+
+** nil   
+   nil type wil a single value *nil*
+
+** boolean
+   #+BEGIN_SRC lua
+   a = true ; b = false
+   #+END_SRC
+   
+   Conditions consider *false* and *nil* to be false and *anything else* as true.
+
+** number
+   Lua has no integer, only floating point(double precision by default).
+   #+BEGIN_SRC lua
+   4.e-3
+   #+END_SRC
+
+** string
+   Lua is 8 bit clean, you can store any binary data to a string object.
+   string object is immutable.
+   #+BEGIN_SRC lua
+   a = 'abc'
+   a = "abc"
+   a = [[
+   abc
+   def
+   ]]
+   #+END_SRC
+
+   Automatic string to number conversions at runtime. Vice versa.
+   Comparation needs to use *tonumber* explicitly
+
+** table
+   
+
+* Expressions
+* Statements
+* Functions
+* More about Functions
+* Iterators and Generic for
+* Compilation and Execution and Errors
+* Coroutines
+* Complete Examples
