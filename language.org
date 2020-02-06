@@ -16,6 +16,7 @@
 
 ** Global Variable
    When we want to delete a gloabl variable, use nil assignment
+
 ** Lexical Conventions
    #+BEGIN_SRC lua
    -- Reserved identifiers:
@@ -43,9 +44,9 @@
    type(1.0)
    #+END_SRC
 
-** nil   
+** nil
    nil type wil a single value *nil*
-
+   
 ** boolean
    #+BEGIN_SRC lua
    a = true ; b = false
@@ -75,9 +76,98 @@
    Comparation needs to use *tonumber* explicitly
 
 ** table
+   Associative array. 
+   *Table is the only data structure in Lua*. Even packages as well is tables. io.read()
+   #+BEGIN_SRC lua
+   io.read() -- io is a table, we index this table with string read
+
+   t = {} -- Create by ctor expr
+
+   t.field_name -- Syntactic sugar for t["field_name"]
+   #+END_SRC
    
+   Table field evaluated to nil if they are not initialized. Assign nil can delete the field.
+   Lua store *gloabl variables* in ordinary table.
+
+   For conventional array, use *int* as key, although Lua don't have int type.  
+   The end of the array is *nil* (uninitialized field).
+   #+BEGIN_SRC lua
+   -- ipairs(), iterate over the array
+   for key, value in ipairs(t) do
+       print(value)
+   end
+   #+END_SRC
+   It is a convention in Lua to start an array with *1*, Lua std relies on this convention.
+
+** functions
+   First class value in Lua. Lua or C function
+
+** userdata
+   Userdata allows C data to be stored in Lua variables.
+   No predefined operations in Lua except assignment and equality test.
 
 * Expressions
+** Basics
+   Expressions denotes *values*
+   | numeric constants           |
+   | string literals             |
+   | variables                   |
+   | unary operations            |
+   | binary operations           |
+   | function calls              |
+   | unconventional function def |
+   | table constructors          |
+
+** Arithmetic Operators
+   + - * / ^
+** Relational Operators
+   < > <= >= == ~=
+
+   Values from two different types are *not equal*. So *nil* is only equal to *nil*.
+   
+   Value of type *table*, *function* and *userdata* are compared by reference.
+   If they refer to the same object, they will be equal.
+
+** Logical Operators   
+   and or not
+
+   Just like control structures, only *false* and *nil* are considered as false
+
+   *and* *or* return arguments. 
+   *and* returns the 1st arg if the 1st arg is false, otherwise it returns the 2nd arg.
+   *or*  returns the 1st arg if the 1st arg is true,  otherwise it returns the 2nd arg.
+   #+BEGIN_SRC lua
+   (a and b) or c -- a ? b : c, provided that b is not false
+   #+END_SRC
+
+   *not* returns true or false.
+
+** Concatenation
+   .. only for string. If the arg are numbers, they will be converted to string
+   
+** Table constructors
+   Constructors are expressions that create and initialize tables.
+
+   {}:               empty constructor
+   {'a', 'b', 'c'}:  sequence constructor, equal to { [ 1 ] = 'a', [ 2 ] = 'b'}
+   {'a'=1, 'b'=2}:   record constructor,   equal to { ['a'] = 1,   ['b'] = 2  }
+   
+   *All tables are created equal*
+
+   linked list in lua
+   #+BEGIN_SRC lua
+   list = nil
+   for line in io.lines() do
+       list = { next=list, value=line }
+   end
+
+   head = list
+   while head do
+       print(head.value)
+       head = head.next
+   end
+   #+END_SRC
+
 * Statements
 * Functions
 * More about Functions
