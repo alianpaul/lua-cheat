@@ -38,7 +38,7 @@
    *arg* for cmd args
    
 * Types and Values
-** Basics
+** Overview
    *nil*, boolean, number, string, *userdata*, function, *thread*, *table*
    #+BEGIN_SRC lua
    type(1.0)
@@ -107,7 +107,7 @@
    No predefined operations in Lua except assignment and equality test.
 
 * Expressions
-** Basics
+** Overview
    Expressions denotes *values*
    | numeric constants           |
    | string literals             |
@@ -120,6 +120,7 @@
 
 ** Arithmetic Operators
    + - * / ^
+     
 ** Relational Operators
    < > <= >= == ~=
 
@@ -169,6 +170,106 @@
    #+END_SRC
 
 * Statements
+** Overview
+   conventional statements: assignments, control structures, procedure calls
+   unconventional: multiple assignments, local var declaration
+
+** Assignments
+   Changing the value of a var or table fields
+   #+BEGIN_SRC lua
+   a, b = 1, 2
+   #+END_SRC
+
+   Values to be assigned are evaled first. So we can do swap like
+   #+BEGIN_SRC lua
+   x, y = y, x
+   #+END_SRC
+
+   Extra values are thrown away; extra variables get nil
+
+** Local Var and Blocks
+   local var's scope limited to the block where it is decalred.
+   block: body of
+   | function                          |
+   | control structure                 |
+   | chunk(file one line in iter mode) |
+
+   Creates the local var initialized with global var's value, global var will preserve its value
+   #+BEGIN_SRC lua
+   local foo = foo   
+   #+END_SRC
+
+   Delimit a block explicitly by *do-end*
+   #+BEGIN_SRC lua
+   do
+      local a = 1
+   end -- scope of a ends here
+   #+END_SRC
+   
+** Control Structures   
+   if-end
+   while-end repeat-until for-end
+
+*** if-then-else
+    #+BEGIN_SRC lua
+    if a < 0 then
+        return 10
+    elseif then
+        return 11
+    else
+        error("Invalid operation")
+    end
+    #+END_SRC
+
+*** while
+    #+BEGIN_SRC lua
+    while condition do
+        print(x)
+    end
+    #+END_SRC
+
+*** repeat
+    #+BEGIN_SRC lua
+      repeat
+          line = io.read()
+      until line == ""
+    #+END_SRC
+
+*** Numeric for
+    #+BEGIN_SRC lua
+      for var=exp_start, exp_end, exp_step do
+          print(var)
+      end    
+    #+END_SRC
+
+*** Generic for
+    loop values returned by an iterator. 
+    std has some iterator utils:
+    | io.lines     | file                |
+    | pairs        | table               |
+    | ipairs       | table               |
+    | string.gfind | words of the string |
+
+    #+BEGIN_SRC lua
+      for k in pairs(t) do
+          print(k)
+      end
+
+      for k,v in ipairs(t) do
+          print(k)
+          print(v)
+      end    
+    #+END_SRC
+
+*** break and return
+    For syntactic reasons, *return* and *break* are last statements in a block
+    To return in the middle of a block, use explicit *do* block
+    #+BEGIN_SRC lua
+      function foo()
+          do return end
+      end
+    #+END_SRC
+
 * Functions
 * More about Functions
 * Iterators and Generic for
